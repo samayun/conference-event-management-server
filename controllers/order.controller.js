@@ -1,8 +1,9 @@
 const Order = require("../models/Order.model");
-const { validationResult } = require("express-validator");
+
+// POST https://conference-events.herokuapp.com/orders
 exports.create = async (req, res, next) => {
     try {
-        // email , price
+        //  serviceId , serviceName , name , email , price , status
         let order = new Order(req.body);
         let response = await order.save();
         res.status(201).json(response);
@@ -10,7 +11,7 @@ exports.create = async (req, res, next) => {
         next(error);
     }
 };
-
+// GET https://conference-events.herokuapp.com/orders
 exports.read = async (req, res, next) => {
     try {
         let orders = await Order.find({});
@@ -23,10 +24,6 @@ exports.read = async (req, res, next) => {
 exports.findByEmail = async (req, res, next) => {
     try {
         // Finds the validation errors in this request and wraps them in an object with handy functions
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(403).json({ errors: errors.mapped() });
-        }
 
         let orders = await Order.find({ email: req.query.email });
         if (orders) {

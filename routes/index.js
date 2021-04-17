@@ -1,9 +1,10 @@
 // IMPORT Routes
-// const orderRoutes = require('./order.route');
-const serviceRoutes = require('./service.route');
 const adminRoutes = require('./admin.route');
+const orderRoutes = require('./order.route');
+const serviceRoutes = require('./service.route');
+const reviewRoutes = require('.//review.route');
 // IMPORT Middleware
-// const bindAuthUser = require('../middlewares/bindUserRequest.middleware');
+const bindAuthUser = require('../middlewares/bindUserRequest.middleware');
 
 const generateMethods = (methods) => {
     let method = "";
@@ -29,15 +30,23 @@ const generateStacks = (handler) => {
 
 
 const routes = [
-    // {
-    //     path: "/orders",
-    //     handler: [bindAuthUser(), orderRoutes]
-    // },
     {
+        name: "Orders",
+        path: "/orders",
+        handler: orderRoutes
+    },
+    {
+        name: "Services",
         path: "/services",
         handler: serviceRoutes
     },
     {
+        name: "REVIEW",
+        path: "/reviews",
+        handler: reviewRoutes
+    },
+    {
+        name: "All Route List",
         path: "/admins",
         handler: adminRoutes
     },
