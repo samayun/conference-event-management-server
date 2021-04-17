@@ -1,0 +1,22 @@
+{
+  "name": "conference-events-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^3.3.6",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "firebase-admin": "^9.6.0",
+    "mongoose": "^5.12.3"
+  },
+  "scripts": {
+    "start": "node index",
+    "start:dev": "NODE_ENV=developement && nodemon index",
+    "start:prod": "NODE_ENV=serviceion && node index"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
