@@ -1,4 +1,6 @@
 const Order = require("../models/Order.model");
+const Admin = require("../models/Admin.model");
+
 
 // POST https://conference-events.herokuapp.com/orders
 exports.create = async (req, res, next) => {
@@ -14,8 +16,23 @@ exports.create = async (req, res, next) => {
 // GET https://conference-events.herokuapp.com/orders
 exports.read = async (req, res, next) => {
     try {
-        let orders = await Order.find({});
-        res.json(orders);
+        let {email} = req.user;
+       
+        let admin = await Admin.findOne({ email });
+        console.log(admin);
+
+        // If user is admin fetch all orders 
+        if (admin) {
+
+              let orders = await Order.find({});
+              return res.json(orders);
+
+        } else {
+            // otherwise fetch only users orders
+            let orders = await Order.find({email});
+            return res.json(orders);
+        }
+
     } catch (error) {
         next(error);
     }
@@ -57,7 +74,7 @@ exports.update = async (req, res, next) => {
 
 exports.deleteOrder = async (req, res, next) => {
     try {
-        let order = await Order.findOneAndDelete({ email: req.query.email });
+        let order = await Order.findOneAndDelete({ _id: req.params.orderId });
         res.status(200).json(order);
     } catch (error) {
         next(error);

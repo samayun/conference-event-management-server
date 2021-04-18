@@ -1,19 +1,9 @@
 const { Schema, model } = require('mongoose');
 
-const ModelSchema = new Schema({
-    name: {
-        type: String,
-        minLength: 2,
-        maxLength: 30
+const ModelSchema = new Schema(
+    {
+        email: String
     },
-    image: {
-        type: String,
-        default: "https://blog-node-exp.herokuapp.com/uploads/default.png"
-    },
-    email: {
-        type: String,
-        trim: true
-    }
-})
+    { timestamps: true });
 
 module.exports = model('Admin', ModelSchema)

@@ -1,7 +1,6 @@
-<p style="text-align:center;">
-      <img src="https://conference-events.web.app/logo192.png" alt="conference-events"  style="width:200px;" /> </br>
+<p align="center">
+      <img src="https://conference-events.web.app/logo192.png" alt="conference-events"  width="200px" /> </br>
 </p>
-
 ### Live URL :https://conference-events.web.app :heart:
 
 ### Server URL: https://conference-events.herokuapp.com
@@ -54,7 +53,7 @@ Review this project on twitter (
 
 # Install Packages
 
-- `yarn add express cors mongoose `
+- `yarn add express cors mongoose dotenv config firebase-admin`
 
 # :smile: Features (Technical)
 
@@ -73,9 +72,6 @@ Review this project on twitter (
 
 # Used Technolgies & Services
 
-- Boostrap
-- service worker
-- React + React Router
 - Nodejs (Express.js Framework)
 - Firebase
 - Heroku

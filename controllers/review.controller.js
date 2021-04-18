@@ -1,10 +1,10 @@
 const Review = require('../models/Review.model.js');
 
-// POST https://conference-events.herokuapp.com/reviews/create { name: "Salman", email : 'samayunmc99@gmail.com }
+// POST https://conference-events.herokuapp.com/reviews { name: "Salman", email : 'samayunmc99@gmail.com }
 exports.create = async (req, res, next) => {
     try {
-        const { name, designation, description, rating } = req.body;
-        let review = new Review({ name, designation, description, rating });
+        // const { name, designation, description,image, rating } = req.body;
+        let review = new Review(req.body);
         let response = await review.save();
         res.status(201).json(response);
     } catch (error) {
@@ -20,6 +20,19 @@ exports.read = async (req, res, next) => {
         next(error);
     }
 }
+
+// GET https://conference-events.herokuapp.com/myreviews
+exports.myreviews = async (req, res, next) => {
+    try {
+        console.log(req.user.email)
+        let reviews = await Review.find({email: req.user.email});
+        res.json(reviews);
+    } catch (error) {
+        next(error);
+    }
+}
+
+
 // GET https://conference-events.herokuapp.com/reviews/show/69788abc545454
 exports.show = async (req, res, next) => {
     try {

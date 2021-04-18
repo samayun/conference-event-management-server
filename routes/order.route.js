@@ -1,7 +1,8 @@
 const {
     create,
     read,
-    findByEmail
+    findByEmail,
+    deleteOrder
 } = require("../controllers/order.controller");
 
 
@@ -16,5 +17,7 @@ router.get("/", bindAuthUser(), read);
 // USER 
 router.get("/find?", bindAuthUser(), findByEmail);
 
+// ADMIN
+router.delete("/:orderId", bindAuthUser(), deleteOrder);
 
 module.exports = router;

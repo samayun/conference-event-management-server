@@ -6,6 +6,8 @@ const ModelSchema = new Schema(
             type: String,
             trim: true,
         },
+        image: String,
+        email: String,
         designation: String,
         description: String,
         rating: String

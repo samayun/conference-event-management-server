@@ -46,7 +46,7 @@ const routes = [
         handler: reviewRoutes
     },
     {
-        name: "All Route List",
+        name: "Admin Section",
         path: "/admins",
         handler: adminRoutes
     },

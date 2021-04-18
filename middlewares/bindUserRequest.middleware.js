@@ -13,7 +13,7 @@ module.exports = () => {
             if (bearer && bearer.startsWith("Bearer") && idToken) {
                 let firebaseUser = await admin.auth().verifyIdToken(idToken);
                 req.user = firebaseUser;
-                console.log(firebaseUser);
+                // console.log(firebaseUser);
 
                 next();
             } else {

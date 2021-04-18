@@ -2,14 +2,18 @@ const Admin = require("../models/Admin.model");
 
 exports.create = async (req, res, next) => {
     try {
-        const { name, email, image } = req.body;
-        let checkIsAlreadyExists = await Admin.findOne({ email });
+
+        // const { name, email, image } = req.body;
+        let checkIsAlreadyExists = await Admin.findOne({email: req.body.email});
         if (checkIsAlreadyExists) {
-            next(new Error(`${email} is already  Admin. Please login now`));
-        }
-        let admin = new Admin({ name, email, image });
+           return next(new Error(`${ req.body.email} is already  Admin. Please login now`));
+        }else{
+        let admin = new Admin(req.body);
+        console.log({admin})
         let response = await admin.save();
         res.status(201).json(response);
+    }
+        
     } catch (error) {
         next(error);
     }
@@ -19,8 +23,8 @@ exports.read = async (req, res, next) => {
     try {
         const { email } = req.query;
         if (!email) {
-            let services = await Admin.find({});
-            return res.json(services);
+            let allAdmins = await Admin.find({}).sort({createdAt: -1});
+            return res.json(allAdmins);
         } else {
             let admin = await Admin.findOne({ email }).exec();
             if (admin) {
@@ -29,7 +33,6 @@ exports.read = async (req, res, next) => {
                 return next(new Error(`${email} Admin is not availavle`));
             }
         }
-        ;
     } catch (error) {
         next(error);
     }
@@ -66,7 +69,7 @@ exports.update = async (req, res, next) => {
 exports.deleteAdmin = async (req, res, next) => {
     try {
         const { email } = req.query;
-        if (email) {
+        if (!email) {
             next(new Error(`${email} Not found`));
         }
         let admin = await Admin.findOneAndDelete({ email });
