@@ -5,31 +5,38 @@ const Admin = require("../models/Admin.model");
 // POST https://conference-events.herokuapp.com/orders
 exports.create = async (req, res, next) => {
     try {
-        //  serviceId , serviceName , name , email , price , status
+        // paymentId,service , shipment : {name , email , phone, address } , status , paymentdata: { card, type}
         let order = new Order(req.body);
         let response = await order.save();
+        console.log(`response`, response);
         res.status(201).json(response);
     } catch (error) {
-        next(error);
+        console.log(error.message);
+        next(error.message);
     }
 };
 // GET https://conference-events.herokuapp.com/orders
 exports.read = async (req, res, next) => {
     try {
-        let {email} = req.user;
-       
+        let { email } = req.user;
         let admin = await Admin.findOne({ email });
-        console.log(admin);
 
         // If user is admin fetch all orders 
         if (admin) {
-
-              let orders = await Order.find({});
-              return res.json(orders);
+            req.user.isAdmin = true
+            let orders = await Order.find({}).populate({
+                path: 'service',
+                select: "serviceId name image price"
+            }).sort({createdAt: -1})
+            return res.json(orders);
 
         } else {
             // otherwise fetch only users orders
-            let orders = await Order.find({email});
+            let orders = await Order.find({ "shipment.email": email })
+                .populate({
+                    path: 'service',
+                    select: "serviceId name image price"
+                }).sort({createdAt: -1})
             return res.json(orders);
         }
 

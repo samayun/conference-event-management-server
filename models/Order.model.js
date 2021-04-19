@@ -2,22 +2,33 @@ const { Schema, model } = require("mongoose");
 
 const orderSchema = new Schema(
     {
-        serviceId: {
+        paymentId: String,
+        service: {
             type: Schema.Types.ObjectId,
             ref: "Service",
             trim: true,
         },
-        serviceName: {
-            type: String,
-            trim: true,
+        payment: {
+            id: {
+                type: String,
+                index: {
+                    unique: true,
+                    dropDups: true
+                }
+            },
+            type: {
+                type: String
+            },
+            card: String
         },
-        name: String,
-        email: {
-            type: String,
-            trim: true,
+        shipment: {
+            name: { type: String, trim: true },
+            email: String,
+            phone: String,
+            address: String
         },
-        price: {
-            type: String
+        amount: {
+            type: Number
         },
         status: String
     },

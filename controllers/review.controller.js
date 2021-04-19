@@ -14,7 +14,7 @@ exports.create = async (req, res, next) => {
 // GET https://conference-events.herokuapp.com/reviews/read
 exports.read = async (req, res, next) => {
     try {
-        let reviews = await Review.find({});
+        let reviews = await Review.find({}).sort({ createdAt: -1 });
         res.json(reviews);
     } catch (error) {
         next(error);
@@ -25,7 +25,7 @@ exports.read = async (req, res, next) => {
 exports.myreviews = async (req, res, next) => {
     try {
         console.log(req.user.email)
-        let reviews = await Review.find({email: req.user.email});
+        let reviews = await Review.find({ email: req.user.email }).sort({ createdAt: -1 });
         res.json(reviews);
     } catch (error) {
         next(error);
