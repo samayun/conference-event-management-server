@@ -2,6 +2,7 @@ const {
     create,
     read,
     findByEmail,
+    update,
     deleteOrder
 } = require("../controllers/order.controller");
 
@@ -16,6 +17,10 @@ router.get("/", bindAuthUser(), read);
 
 // USER 
 router.get("/find?", bindAuthUser(), findByEmail);
+
+// ADMIN
+
+router.put("/:orderId", bindAuthUser(), update);
 
 // ADMIN
 router.delete("/:orderId", bindAuthUser(), deleteOrder);

@@ -1,17 +1,14 @@
 const Order = require("../models/Order.model");
 const Admin = require("../models/Admin.model");
 
-
 // POST https://conference-events.herokuapp.com/orders
 exports.create = async (req, res, next) => {
     try {
         // paymentId,service , shipment : {name , email , phone, address } , status , paymentdata: { card, type}
         let order = new Order(req.body);
         let response = await order.save();
-        console.log(`response`, response);
         res.status(201).json(response);
     } catch (error) {
-        console.log(error.message);
         next(error.message);
     }
 };
@@ -27,7 +24,7 @@ exports.read = async (req, res, next) => {
             let orders = await Order.find({}).populate({
                 path: 'service',
                 select: "serviceId name image price"
-            }).sort({createdAt: -1})
+            }).sort({ createdAt: -1 })
             return res.json(orders);
 
         } else {
@@ -36,7 +33,7 @@ exports.read = async (req, res, next) => {
                 .populate({
                     path: 'service',
                     select: "serviceId name image price"
-                }).sort({createdAt: -1})
+                }).sort({ createdAt: -1 })
             return res.json(orders);
         }
 
@@ -62,12 +59,8 @@ exports.findByEmail = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
     try {
-        const { email } = req.query;
-        if (!email) {
-            next(new Error(`Please login with your email address`));
-        }
         let updatedorder = await Order.findOneAndUpdate(
-            { email },
+            { _id: req.params.orderId },
             {
                 $set: req.body,
             },
