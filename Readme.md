@@ -3,9 +3,9 @@
 </p>
 ### Live URL :https://conference-events.web.app :heart:
 
-### Server URL: https://conference-events.herokuapp.com
+Server URL: https://conference-events.herokuapp.com
 
-### Client Side Source Code : https://github.com/Porgramming-Hero-web-course/complete-website-client-samayun
+Client Side Source Code : https://github.com/samayun/conference-event-management
 
 Review this project on twitter (
 <a href="https://twitter.com/intent/tweet?text=What an application ! Wow !Check It =>  :&url=https://sobji-dokan.web.app" target="_blank">
